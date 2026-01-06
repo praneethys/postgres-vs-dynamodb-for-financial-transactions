@@ -6,10 +6,11 @@ A comprehensive benchmarking suite comparing PostgreSQL and DynamoDB for financi
 
 ```
 ├── README.md
+├── LICENSE                        # MIT License
+├── .gitignore                     # Git exclusions
 ├── whitepaper/
-│   ├── whitepaper.md              # Comprehensive analysis whitepaper
-│   ├── images/                    # Charts and diagrams
-│   └── references.md              # Citations and references
+│   ├── whitepaper.md              # Comprehensive analysis with embedded charts
+│   └── references.md              # Citations (local only, gitignored)
 ├── benchmarks/
 │   ├── postgres/
 │   │   ├── schema.sql             # PostgreSQL schema with double-entry bookkeeping
@@ -19,16 +20,26 @@ A comprehensive benchmarking suite comparing PostgreSQL and DynamoDB for financi
 │   │   └── benchmark-reconciliation.go  # Complex query tests
 │   ├── dynamodb/
 │   │   ├── schema.json            # DynamoDB single-table design
+│   │   ├── ACCESS_PATTERNS.md     # DynamoDB access pattern documentation
 │   │   ├── seed-data.go           # Seed 100K+ transactions
 │   │   ├── benchmark-writes.go    # Write performance tests
 │   │   ├── benchmark-reads.go     # Read performance tests
 │   │   └── benchmark-scans.go     # Scan and aggregation tests
 │   └── results/
-│       ├── postgres-results.json  # Benchmark results
-│       ├── dynamodb-results.json  # Benchmark results
-│       └── comparison-charts.py   # Visualization script
+│       ├── postgres-write-results.json          # Write benchmark results
+│       ├── postgres-read-results.json           # Read benchmark results
+│       ├── postgres-reconciliation-results.json # Complex query results
+│       ├── dynamodb-write-results.json          # Write benchmark results
+│       ├── dynamodb-read-results.json           # Read benchmark results
+│       ├── dynamodb-scan-results.json           # Scan benchmark results
+│       ├── throughput-comparison.png            # Write/read throughput charts
+│       ├── latency-comparison.png               # Latency distribution charts
+│       ├── concurrency-scaling.png              # Concurrency performance charts
+│       ├── cost-analysis.png                    # Cost comparison charts
+│       └── comparison-charts.py                 # Visualization script
 ├── docker-compose.yml             # Local PostgreSQL and DynamoDB
 ├── go.mod                         # Go dependencies
+├── go.sum                         # Go dependency checksums
 └── Makefile                       # Automation commands
 ```
 
@@ -140,12 +151,15 @@ Results are saved in JSON format in `benchmarks/results/` and include:
 - Percentile latencies (P50, P95, P99)
 - Operations per second
 - Concurrency impact
+- Consumed RCU/WCU for DynamoDB operations
 
-Visualization charts are generated showing:
-- Throughput comparison
-- Latency distribution
-- Scalability curves
-- Cost analysis
+Four visualization charts are generated and embedded in the whitepaper:
+- **throughput-comparison.png**: Write and read throughput across test scenarios
+- **latency-comparison.png**: Latency distribution (Avg, P95, P99) for both databases
+- **concurrency-scaling.png**: PostgreSQL throughput and P99 latency vs concurrency levels
+- **cost-analysis.png**: Monthly cost comparison across different traffic levels
+
+The whitepaper includes actual benchmark data with analysis written in a natural, human-readable style.
 
 ## Database Configuration
 
@@ -183,14 +197,26 @@ make logs                   # Show docker logs
 
 The comprehensive analysis is available in [whitepaper/whitepaper.md](whitepaper/whitepaper.md) and covers:
 
-1. Executive Summary
+1. Executive Summary with Key Findings
 2. Introduction to Financial Data Requirements
-3. Database Architecture Comparison
-4. Benchmark Methodology
-5. Detailed Results and Analysis
-6. Cost Analysis
-7. Use Case Recommendations
-8. Conclusions and Best Practices
+3. Database Architecture Comparison (PostgreSQL vs DynamoDB)
+4. Benchmark Methodology and Environment
+5. Write Performance Analysis (actual benchmark results)
+6. Read Performance Analysis (actual benchmark results)
+7. Complex Query Performance (actual benchmark results)
+8. Implementation Considerations
+9. Cost Analysis and TCO Comparison
+10. Use Case Recommendations
+11. Data Modeling Summary
+12. Conclusions and Decision Framework
+
+The whitepaper includes:
+- Actual benchmark metrics from all test runs
+- Four embedded visualization charts
+- Natural, human-readable analysis
+- Detailed performance breakdowns by scenario
+- Cost comparison across traffic levels
+- Architecture-specific recommendations
 
 ## Contributing
 
@@ -203,6 +229,15 @@ This benchmark suite is designed for:
 ## License
 
 MIT License - See LICENSE file for details
+
+## Recent Updates
+
+- Whitepaper updated with actual benchmark results from all test runs
+- Four visualization charts embedded in whitepaper (throughput, latency, concurrency, cost)
+- Writing style improved for natural, human-readable analysis
+- All metrics and comparisons based on real benchmark data
+- Complete git history with meaningful commit messages
+- Project structure organized for clarity and reproducibility
 
 ## Acknowledgments
 
