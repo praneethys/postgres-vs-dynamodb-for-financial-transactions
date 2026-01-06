@@ -1,0 +1,82 @@
+{
+  "results": [
+    {
+      "test_name": "Account Reconciliation (SUM by account)",
+      "database": "PostgreSQL",
+      "num_operations": 100,
+      "total_duration_ms": 377146875,
+      "avg_duration_ms": 3771468,
+      "operations_per_sec": 265.14869041404626,
+      "rows_scanned": 200,
+      "rows_returned": 200,
+      "success_count": 100,
+      "error_count": 0,
+      "timestamp": "2026-01-02T21:41:50.260713+05:30"
+    },
+    {
+      "test_name": "Daily Transaction Summary (GROUP BY date)",
+      "database": "PostgreSQL",
+      "num_operations": 10,
+      "total_duration_ms": 1676044375,
+      "avg_duration_ms": 167604437,
+      "operations_per_sec": 5.966429140636565,
+      "rows_scanned": 1200,
+      "rows_returned": 1200,
+      "success_count": 10,
+      "error_count": 0,
+      "timestamp": "2026-01-02T21:41:51.936804+05:30"
+    },
+    {
+      "test_name": "Merchant Analysis (JOIN with aggregation)",
+      "database": "PostgreSQL",
+      "num_operations": 50,
+      "total_duration_ms": 2970128208,
+      "avg_duration_ms": 59402564,
+      "operations_per_sec": 16.83429013782155,
+      "rows_scanned": 2500,
+      "rows_returned": 2500,
+      "success_count": 50,
+      "error_count": 0,
+      "timestamp": "2026-01-02T21:41:54.906975+05:30"
+    },
+    {
+      "test_name": "Top N Accounts by Activity",
+      "database": "PostgreSQL",
+      "num_operations": 100,
+      "total_duration_ms": 7612714375,
+      "avg_duration_ms": 76127143,
+      "operations_per_sec": 13.135919078797698,
+      "rows_scanned": 10000,
+      "rows_returned": 10000,
+      "success_count": 100,
+      "error_count": 0,
+      "timestamp": "2026-01-02T21:42:02.519778+05:30"
+    },
+    {
+      "test_name": "Balance Verification (debits = credits)",
+      "database": "PostgreSQL",
+      "num_operations": 50,
+      "total_duration_ms": 22991560042,
+      "avg_duration_ms": 459831200,
+      "operations_per_sec": 2.174711063914851,
+      "rows_scanned": 0,
+      "rows_returned": 0,
+      "success_count": 50,
+      "error_count": 0,
+      "timestamp": "2026-01-02T21:42:25.511498+05:30"
+    },
+    {
+      "test_name": "Multi-table JOIN Query",
+      "database": "PostgreSQL",
+      "num_operations": 100,
+      "total_duration_ms": 106867333,
+      "avg_duration_ms": 1068673,
+      "operations_per_sec": 935.739642721317,
+      "rows_scanned": 10000,
+      "rows_returned": 10000,
+      "success_count": 100,
+      "error_count": 0,
+      "timestamp": "2026-01-02T21:42:25.618511+05:30"
+    }
+  ]
+}
