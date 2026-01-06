@@ -1,0 +1,73 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: financial-benchmark-postgres
+    environment:
+      POSTGRES_DB: financial_benchmark
+      POSTGRES_USER: benchmark
+      POSTGRES_PASSWORD: benchmark123
+      POSTGRES_INITDB_ARGS: "-E UTF8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./benchmarks/postgres/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=256MB"
+      - "-c"
+      - "max_connections=200"
+      - "-c"
+      - "work_mem=16MB"
+      - "-c"
+      - "maintenance_work_mem=128MB"
+      - "-c"
+      - "effective_cache_size=512MB"
+      - "-c"
+      - "random_page_cost=1.1"
+      - "-c"
+      - "checkpoint_completion_target=0.9"
+      - "-c"
+      - "wal_buffers=16MB"
+      - "-c"
+      - "default_statistics_target=100"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U benchmark -d financial_benchmark"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: financial-benchmark-dynamodb
+    ports:
+      - "8000:8000"
+    environment:
+      JAVA_OPTS: "-Xmx2g -Xms512m"
+    command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+    volumes:
+     - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin:latest
+    container_name: financial-benchmark-dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: http://dynamodb-local:8000
+      AWS_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    depends_on:
+      - dynamodb-local
+
+volumes:
+  postgres_data:
+  dynamodb_data:
